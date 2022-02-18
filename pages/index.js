@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import {Flex, Box, Text, Button} from "@chakra-ui/react";
-import { baseUrl, fetchApi } from "../utils/fetchAPIs";
-import Property from "./components/property";
+import { baseUrl, fetchApi } from "../utils/fetchAPIs"; 
+import Property from "../components/Property";
 
 const Banner = ({purpose, title1, title2, desc1, desc2, linkName, buttonText, imageUrl }) => (
   <Flex flexWrap="wrap" justifyContent="center" alignItems="center" m="10" > 
@@ -35,7 +35,7 @@ export default function Home({propertiesForSale, propertiesForRent}) {
       
       />
       <Flex flexWrap="wrap">
-        {propertiesForRent.map((property) => <Property property={property} keys={property.id} /> )}
+      {propertiesForRent.map((property) => <Property property={property} key={property.id} />)}
       </Flex>
       <Banner
       purpose="BUY A HOME"
@@ -49,7 +49,7 @@ export default function Home({propertiesForSale, propertiesForRent}) {
       "
       />
       <Flex flexWrap="wrap">
-        {propertiesForSale.map((property) => <Property property={property} keys={property.id} /> )}
+      {propertiesForSale.map((property) => <Property property={property} key={property.id} />)}
       </Flex>       
     </Box>
   )
@@ -63,7 +63,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      propertiesForsale: propertyForSale?.hits,
+      propertiesForSale: propertyForSale?.hits,
       propertiesForRent: propertyForRent?.hits,
     }
   }
