@@ -22,7 +22,6 @@ export default function Home({propertiesForSale, propertiesForRent}) {
   // console.log("props", propertyForSale, propertyForRent);
   return (
     <Box>
-      <h1>Chakra ui</h1>
       <Banner 
       purpose="RENT A HOME"
       title1="Rentsl Homes For"
