@@ -9,13 +9,14 @@ import SearchFIlter from "../components/SearchFilters";
 import noresult from '../assets/images/noresult.svg';
 import { fetchApi, baseUrl } from "../utils/fetchAPIs";
 
-const Search = ({ Properties }) => { 
+const Search = ({ properties }) => { 
     const [ searchFilter, setSearchFliter ] = useState(false);
     const router = useRouter();
     
     return ( 
         <Box>
-            <Flex 
+            <Flex
+                // onClick={() => setSearchFilters(!searchFilters)}
                 cursor="pointer"
                 bg="gray.100"
                 borderBottom="1px"
@@ -32,20 +33,20 @@ const Search = ({ Properties }) => {
             </Flex>
             {searchFilter && <SearchFIlter />}
             <Text fontSize="2xl" p="4" fontWeight="bold">
-                Properties {router.query.purpose}
+                properties {router.query.purpose}
             </Text>
             <Flex flexWrap="wrap">
-            {properties.map((property) => <Property property={property} key={property.id} />)}
+                {properties.map((property) => <Property property={property} key={property.id} />)}
             </Flex>    
-                {Properties.length === 0 &&(
-                    <Flex justifyContent="center" alignItems="center" flexDirection="column" marginTop="5" marginBottom="5">
-                        <Image alt="no result" src={noresult} />
-                        <Text fontSize="2xl" marginTop="3">No Result Foun</Text>
-                    </Flex>
+            {properties.length === 0 &&(
+                <Flex justifyContent="center" alignItems="center" flexDirection="column" marginTop="5" marginBottom="5">
+                    <Image alt="no result" src={noresult} />
+                    <Text fontSize="2xl" marginTop="3">No Result Foun</Text>
+                </Flex>
                 )} 
         </Box>
-    )
-}
+    );
+};
 
 
 export default Search;
