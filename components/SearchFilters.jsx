@@ -4,27 +4,42 @@ import { useRouter } from "next/router";
 import { MdCancel } from "react-icons/md"
 import Image from "next/image";
 
-import { filterData, getFilterValue } from "../utils/filterData";
+import { filterData, getFilterValues } from '../utils/filterData';
+// import { baseUrl, fetchApi } from '../utils/fetchApi';
+import noresult from '../assets/images/noresult.svg';
 
 const SearchFIlter = () => {
-    const [filters, setFilter] = useState(filterData);
+    const [filters] = useState(filterData);
 
-    const searchProperties = (filterValue) => {
+    const searchProperties = (filterValues) => {
+        const path = router.pathname;
+        const { query } = router;
 
-    }
+        const values = getFilterValues(filterValues)
+
+        values.forEach((item) => {
+            if(item.value && filterValues?.[item.name]) {
+            query[item.name] = item.value
+            }
+        })
+
+        router.push({ pathname: path, query: query });
+        };
 
     return (
-        <Box bg="gray.100" p="4" justifyContent="center" flexWrap="wrap" > 
-            {filters.map((filter) => (
-                <Box key={filter.queryName} > 
-                    <Select onChanged={(e) => searchProperties({[filter.queryName]: e.target.value})}
-                    w="fit-content"
-                    p="2"
-                    placeholder={filter.placeholder}
-                    ></Select>
-                </Box>
-            ))}
-        </Box>
+    <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
+    {filters?.map((filter) => (
+    <Box key={filter.queryName}>
+        <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
+        {filter?.items?.map((item) => (
+            <option value={item.value} key={item.value}>
+            {item.name}
+            </option>
+        ))}
+        </Select>
+    </Box>
+    ))}
+    </Flex>
     ) 
 }
 
